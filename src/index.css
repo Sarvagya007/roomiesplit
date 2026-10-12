@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme tokens (space-separated RGB so Tailwind opacity modifiers work). */
+:root {
+  --page: 251 246 238;
+  --card: 255 255 255;
+  --ink: 31 41 55;
+  --muted: 107 114 128;
+  --line: 234 223 206;
+  --soft: 246 239 227;
+  --brand: 15 130 120;
+  --brand-soft: 215 241 237;
+  --brand-ink: 10 90 83;
+  --pos: 14 135 90;
+  --pos-soft: 217 243 228;
+  --neg: 214 74 44;
+  --neg-soft: 255 228 219;
+  --sun: 161 110 0;
+  --sun-soft: 255 241 199;
+  --lilac: 104 82 214;
+  --lilac-soft: 234 230 255;
+}
+.dark {
+  --page: 20 23 28;
+  --card: 29 33 39;
+  --ink: 243 244 246;
+  --muted: 156 163 175;
+  --line: 48 54 62;
+  --soft: 38 43 51;
+  --brand: 62 201 187;
+  --brand-soft: 20 62 60;
+  --brand-ink: 150 235 225;
+  --pos: 84 214 150;
+  --pos-soft: 22 60 44;
+  --neg: 255 138 110;
+  --neg-soft: 74 36 28;
+  --sun: 245 200 80;
+  --sun-soft: 70 56 18;
+  --lilac: 170 155 255;
+  --lilac-soft: 45 40 80;
+}
+
+@layer base {
+  html { color-scheme: light; }
+  html.dark { color-scheme: dark; }
+  body {
+    @apply bg-page font-sans text-ink antialiased;
+    background-image:
+      radial-gradient(600px 300px at 0% 0%, rgb(var(--brand-soft) / 0.6), transparent 70%),
+      radial-gradient(500px 280px at 100% 0%, rgb(var(--lilac-soft) / 0.6), transparent 70%);
+    background-repeat: no-repeat;
+  }
+  :focus-visible { @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-page; }
+}
+
+@layer components {
+  .card { @apply rounded-3xl border border-line bg-card shadow-card; }
+  .btn { @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-2xl px-4 text-sm font-bold transition active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn-primary { @apply btn bg-brand text-white hover:brightness-110 dark:text-page; }
+  .btn-ghost { @apply btn border border-line bg-card text-ink hover:bg-soft; }
+  .btn-danger { @apply btn bg-neg text-white hover:brightness-110 dark:text-page; }
+  .input { @apply min-h-[44px] w-full rounded-2xl border border-line bg-card px-3 text-sm text-ink placeholder:text-muted/70; }
+  .label { @apply mb-1 block text-xs font-bold uppercase tracking-wide text-muted; }
+  .err { @apply mt-1 text-xs font-semibold text-neg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
